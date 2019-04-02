@@ -1,5 +1,6 @@
 package xin.zhuyao.wechat_app.controller.xiaoguo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping(value = "/xiaoguo")
+@Api(value = "小郭小程序接口",description = "获取用户信息")
 public class UserMessagerController {
 
     @Autowired
@@ -40,7 +42,7 @@ public class UserMessagerController {
             @ApiImplicitParam(name = "appid",value = "小程序id",dataType = "String"),
             @ApiImplicitParam(name = "openId",value = "用户id",dataType = "String"),
     })
-    public ResponseMessageUtils getUserMessage(String appid, String openId) {
+    public ResponseMessageUtils<UserMessage> getUserMessage(String appid, String openId) {
         log.info("获取用户信息---------------getUserMessage");
         Optional<UserMessage> optionalUserMessage = userMessageService.findByAppidAndOpenId(appid, openId);
         if (optionalUserMessage.isPresent()) {
@@ -56,7 +58,7 @@ public class UserMessagerController {
             @ApiImplicitParam(name = "userName",value = "用户名称",dataType = "String"),
             @ApiImplicitParam(name = "openId",value = "用户id",dataType = "String")
     })
-    public ResponseMessageUtils updateUserName(String userName, String openId) {
+    public ResponseMessageUtils<?> updateUserName(String userName, String openId) {
         log.info("更新用户名称---------------updateUserName");
         Boolean aBoolean = userMessageService.updateUserName(userName, openId);
         if (aBoolean) {

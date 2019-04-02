@@ -32,6 +32,9 @@ public class XiaoGuoUser implements Serializable {
     @ApiModelProperty(value = "用户名称", dataType = "String")
     String userName;
 
+    @ApiModelProperty(value = "工号", dataType = "String")
+    String jobNumber;
+
     @ApiModelProperty(value = "用户邮箱", dataType = "String")
     String email;
 

@@ -1,5 +1,6 @@
 package xin.zhuyao.wechat_app.controller.xiaoguo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping(value = "/xiaoguo")
+@Api(value = "小郭小程序接口",description = "样品签收接口")
 public class SampleSignController {
 
     @Autowired
@@ -36,19 +38,19 @@ public class SampleSignController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uesrName",value = "用户名称",dataType = "String")
     })
-    public ResponseMessageUtils getSampleSignAll(String uesrName) {
+    public ResponseMessageUtils<List<SampleSign>> getSampleSignAll(String uesrName) {
         log.info("获取某人的样品---------------getSampleSignAll");
         return ResponseMessageUtils.ok(sampleSignService.findAllByUserName(uesrName));
     }
 
 
     @RequestMapping(value = "/getSampleSignByNow",method = RequestMethod.GET)
-    @ApiOperation(value = "获取某人当天的样品", notes = "获取某人当天的样品")
+    @ApiOperation(value = "获取某人未确认的样品", notes = "获取某人未确认的样品")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "uesrName",value = "用户名称",dataType = "String")
     })
-    public ResponseMessageUtils getSampleSignByNow(String uesrName) {
-        log.info("获取某人当天的样品---------------getSampleSignByNow");
+    public ResponseMessageUtils<List<SampleSign>> getSampleSignByNow(String uesrName) {
+        log.info("获取某人未确认的样品---------------getSampleSignByNow");
         return ResponseMessageUtils.ok(sampleSignService.findAllByUserNameAndStatus(uesrName, 0));
     }
 
@@ -58,8 +60,7 @@ public class SampleSignController {
             @ApiImplicitParam(name = "listData",value = "数据",dataType = "String")
     })
     public ResponseMessageUtils submitMessage(String listData) {
-        log.info("获取某人当天的样品---------------getSampleSignByNow");
-        log.info(listData);
+        log.info("提交确认信息---------------submitMessage");
         return ResponseMessageUtils.ok(sampleSignService.submitMessage(listData));
     }
 }

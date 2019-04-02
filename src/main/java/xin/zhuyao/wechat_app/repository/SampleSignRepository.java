@@ -20,4 +20,6 @@ public interface SampleSignRepository extends JpaRepository<SampleSign, Integer>
     List<SampleSign> findAllByUserNameAndSelectDate(String uesrName, String now);
 
     List<SampleSign> findAllByUserNameAndStatus(String uesrName, int status);
+
+    List<SampleSign> findAllByStatus(int status);
 }

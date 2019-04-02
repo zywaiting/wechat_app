@@ -1,5 +1,6 @@
 package xin.zhuyao.wechat_app.controller;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import xin.zhuyao.wechat_app.utils.ResponseMessageUtils;
  */
 @RestController
 @Slf4j
+@Api(value = "小程序接口登陆总接口",description = "所有小程序都从这地方登陆")
 public class LoginController {
 
     @Autowired
@@ -37,7 +39,7 @@ public class LoginController {
             @ApiImplicitParam(name = "appUrlName",value = "请求路径",dataType = "String"),
             @ApiImplicitParam(name = "userInfo",value = "用户信息",dataType = "String")
     })
-    public ResponseMessageUtils onLoginAll(String code, String express, String appUrlName, String userInfo) {
+    public ResponseMessageUtils<String> onLoginAll(String code, String express, String appUrlName, String userInfo) {
         log.info("调用了用户登录接口---------------onLoginAll");
         String openId = loginService.onLogin(code, express, appUrlName, userInfo);
         return ResponseMessageUtils.ok(openId);

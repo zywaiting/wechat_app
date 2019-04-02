@@ -39,7 +39,7 @@ public class SampleSign implements Serializable {
     @ApiModelProperty(value = "所属用户", dataType = "String")
     String userName;
 
-    @ApiModelProperty(value = "appid", dataType = "String")
+    @ApiModelProperty(value = "产品数量", dataType = "String")
     Integer productNum;
 
     @ApiModelProperty(value = "创建时间", dataType = "LocalDateTime")

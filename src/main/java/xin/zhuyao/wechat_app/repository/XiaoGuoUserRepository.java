@@ -14,4 +14,6 @@ import xin.zhuyao.wechat_app.entity.XiaoGuoUser;
 public interface XiaoGuoUserRepository extends JpaRepository<XiaoGuoUser, Integer>, JpaSpecificationExecutor<XiaoGuoUser> {
 
     XiaoGuoUser findByUserName(String userName);
+
+    XiaoGuoUser findByJobNumber(String substring);
 }

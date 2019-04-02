@@ -1,6 +1,7 @@
 package xin.zhuyao.wechat_app.service;
 
 import xin.zhuyao.wechat_app.entity.SampleSign;
+import xin.zhuyao.wechat_app.entityvm.ProductAndUserMessageVm;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,4 +20,8 @@ public interface SampleSignService {
     List<SampleSign> findAllByUserNameAndStatus(String uesrName, int status);
 
     Object submitMessage(String listData);
+
+    List<SampleSign> findAllByStatus(int status);
+
+    Object saveSampleSign(ProductAndUserMessageVm productAndUserMessageVm);
 }
