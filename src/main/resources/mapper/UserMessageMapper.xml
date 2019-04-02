@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="xin.zhuyao.wechat_app.mapper.UserMessageMapper">
+
+    <!--查询是否已经存在用户信息-->
+    <select id="selectCountUserConfigByOpenId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `t_user_message` WHERE `open_id` = #{openId}
+    </select>
+    <!--插入用户信息-->
+    <insert id="insterUserConfig" parameterType="xin.zhuyao.wechat_app.entity.UserMessage">
+        INSERT INTO `t_user_message` (`appid`,`open_id`,`nick_name`,`avatar_url`,`gender`,`city`,`province`,`country`,`language`,`union_id`,
+        `latitude`,`longitude`,`speed`,`accuracy`,`vertical_accuracy`,`horizontal_accuracy`,`create_date`,`update_date`)
+        VALUES (#{appid},#{openId},#{nickName},#{avatarUrl},#{gender},#{city},#{province},#{country},#{language},#{unionId},
+        #{latitude},#{longitude},#{speed},#{accuracy},#{verticalAccuracy},#{horizontalAccuracy},NOW(),NOW())
+    </insert>
+    <!--补全用户信息-->
+    <update id="updateUserConfigByOpenId" parameterType="xin.zhuyao.wechat_app.entity.UserMessage">
+        UPDATE `t_user_message`
+        <set>
+            `update_date` = NOW()
+            <if test="nickName != null and nickName !=''">,`nick_name` = #{nickName}</if>
+            <if test="avatarUrl != null and avatarUrl !=''">,`avatar_url` = #{avatarUrl}</if>
+            <if test="gender != null and gender !=''">,`gender` = #{gender}</if>
+            <if test="city != null and city !=''">,`city` = #{city}</if>
+            <if test="province != null and province !=''">,`province` = #{province}</if>
+            <if test="country != null and country !=''">,`country` = #{country}</if>
+            <if test="language != null and language !=''">,`language` = #{language}</if>
+            <if test="latitude != null and latitude !=''">,`latitude` = #{latitude}</if>
+            <if test="longitude != null and longitude !=''">,`longitude` = #{longitude}</if>
+            <if test="speed != null and speed !=''">,`speed` = #{speed}</if>
+            <if test="accuracy != null and accuracy !=''">,`accuracy` = #{accuracy}</if>
+            <if test="verticalAccuracy != null and verticalAccuracy !=''">,`vertical_accuracy` = #{verticalAccuracy}</if>
+            <if test="horizontalAccuracy != null and horizontalAccuracy !=''">,`horizontal_accuracy` = #{horizontalAccuracy}</if>
+        </set>
+
+        WHERE `open_id` = #{openId}
+    </update>
+
+    <select id="selectByOpenId" resultType="xin.zhuyao.wechat_app.entity.UserMessage">
+        SELECT * FROM `t_user_message` WHERE `open_id` = #{openId}
+    </select>
+
+</mapper>
