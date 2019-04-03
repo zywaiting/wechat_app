@@ -1,8 +1,9 @@
 package xin.zhuyao.wechat_app.service;
 
-import xin.zhuyao.wechat_app.entitydto.ProductAndUserMessageDto;
+
+import java.util.Optional;
 
 public interface ProductScanService {
 
-    ProductAndUserMessageDto getProductAndUserMessage(String sku);
+    Optional<Object> getProductAndUserMessage(String sku);
 }

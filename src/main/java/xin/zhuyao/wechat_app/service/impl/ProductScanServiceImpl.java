@@ -1,5 +1,6 @@
 package xin.zhuyao.wechat_app.service.impl;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.zhuyao.wechat_app.entity.ProductSign;
@@ -26,18 +27,17 @@ public class ProductScanServiceImpl implements ProductScanService {
     private XiaoGuoUserRepository xiaoGuoUserRepository;
 
     @Override
-    public ProductAndUserMessageDto getProductAndUserMessage(String sku) {
+    public Optional<Object> getProductAndUserMessage(String sku) {
         Optional<ProductSign> optionalProductSign = Optional.ofNullable(productSignRepository.findBySku(sku));
         Optional<XiaoGuoUser> optionalXiaoGuoUser = Optional.ofNullable(xiaoGuoUserRepository.findByJobNumber(sku.substring(1,4)));
         ProductAndUserMessageDto productAndUserMessageDto = new ProductAndUserMessageDto();
         productAndUserMessageDto.setSku(sku);
-        if (optionalProductSign.isPresent()) {
+        if (optionalProductSign.isPresent() && optionalXiaoGuoUser.isPresent()) {
             productAndUserMessageDto.setProductName(optionalProductSign.get().getProductName());
-        }
-        if (optionalXiaoGuoUser.isPresent()) {
             productAndUserMessageDto.setUserName(optionalXiaoGuoUser.get().getUserName());
+            return Optional.ofNullable(productAndUserMessageDto);
         }
-        return productAndUserMessageDto;
+        return Optional.empty();
     }
 
 }

@@ -18,6 +18,7 @@ import xin.zhuyao.wechat_app.service.SampleSignService;
 import xin.zhuyao.wechat_app.utils.ResponseMessageUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @ClassName ProductScanController
@@ -36,15 +37,19 @@ public class ProductScanController {
     @Autowired
     private SampleSignService sampleSignService;
 
-    @RequestMapping(value = "/getProductAndUserMessage",method = RequestMethod.GET)
+    @RequestMapping(value = "/getProductAndUserMessage", method = RequestMethod.GET)
     @ApiOperation(value = "获取产品和所属用户", notes = "获取产品和所属用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sku",value = "sku",dataType = "String")
+            @ApiImplicitParam(name = "sku", value = "sku", dataType = "String")
     })
-    public ResponseMessageUtils<ProductAndUserMessageDto> getProductAndUserMessage(String sku) {
+    public ResponseMessageUtils<Object> getProductAndUserMessage(String sku) {
         log.info("获取某人的样品---------------getProductAndUserMessage");
         if (sku.length() > 4) {
-            return ResponseMessageUtils.ok(productScanService.getProductAndUserMessage(sku));
+            Optional<Object> optional = productScanService.getProductAndUserMessage(sku);
+            if (optional.isPresent()) {
+                return ResponseMessageUtils.ok(optional.get());
+            }
+            return ResponseMessageUtils.ok("SKU错误");
         }
         return ResponseMessageUtils.error("SKU错误");
     }
