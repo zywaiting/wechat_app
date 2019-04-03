@@ -32,7 +32,7 @@ public class ProductNameExcelServiceImpl implements ProductNameExcelService {
                 String[] split = datas.get(i).toString().replace("[", "").replace("]", "").split(",");
                 if (split.length == 2 && !StringUtils.isEmpty(split[0].trim()) && !StringUtils.isEmpty(split[1].trim())
                         && !"null".equals(split[0].trim()) && !"null".equals(split[1].trim())
-                        GIT&& productSignList.stream().noneMatch(productSign -> productSign.getSku().toUpperCase().equals(split[0].trim().toUpperCase()))) {
+                        && productSignList.stream().noneMatch(productSign -> productSign.getSku().toUpperCase().equals(split[0].trim().toUpperCase()))) {
                     ProductSign productSign = new ProductSign();
                     productSign.setSku(split[0].trim());
                     productSign.setProductName(split[1].trim());
