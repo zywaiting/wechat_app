@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "t_sample_sign")
+@Table(name = "t_sample_sign",uniqueConstraints=@UniqueConstraint(columnNames="productName"))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SampleSign implements Serializable {
 

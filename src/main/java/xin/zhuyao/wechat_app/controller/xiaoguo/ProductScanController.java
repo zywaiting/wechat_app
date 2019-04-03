@@ -56,7 +56,7 @@ public class ProductScanController {
         return ResponseMessageUtils.ok(sampleSignService.findAllByStatus(0));
     }
 
-    @RequestMapping(value = "/saveSampleSign",method = RequestMethod.GET)
+    @RequestMapping(value = "/saveSampleSign",method = RequestMethod.POST)
     @ApiOperation(value = "保存样品数量", notes = "保存样品数量")
     public ResponseMessageUtils<?> saveSampleSign(@RequestBody ProductAndUserMessageVm productAndUserMessageVm) {
         log.info("保存样品数量---------------getSampleSignByNow");
