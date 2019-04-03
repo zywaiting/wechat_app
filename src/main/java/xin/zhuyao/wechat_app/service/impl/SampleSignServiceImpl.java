@@ -57,7 +57,7 @@ public class SampleSignServiceImpl implements SampleSignService {
 
     @Override
     public List<SampleSign> findAllByStatus(int status) {
-        return sampleSignRepository.findAllByStatus(status);
+        return sampleSignRepository.findAllByStatus(status).stream().sorted(Comparator.comparing(SampleSign::getCreateDate).reversed()).collect(Collectors.toList());
     }
 
     @Override
