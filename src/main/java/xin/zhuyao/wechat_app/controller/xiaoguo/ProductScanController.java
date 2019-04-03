@@ -60,6 +60,11 @@ public class ProductScanController {
     @ApiOperation(value = "保存样品数量", notes = "保存样品数量")
     public ResponseMessageUtils<?> saveSampleSign(@RequestBody ProductAndUserMessageVm productAndUserMessageVm) {
         log.info("保存样品数量---------------getSampleSignByNow");
-        return ResponseMessageUtils.ok(sampleSignService.saveSampleSign(productAndUserMessageVm));
+        String s = sampleSignService.saveSampleSign(productAndUserMessageVm);
+        if (s.equals("ok")) {
+            return ResponseMessageUtils.ok();
+        }else {
+            return ResponseMessageUtils.error("有数据为空!");
+        }
     }
 }

@@ -23,5 +23,5 @@ public interface SampleSignService {
 
     List<SampleSign> findAllByStatus(int status);
 
-    Object saveSampleSign(ProductAndUserMessageVm productAndUserMessageVm);
+    String saveSampleSign(ProductAndUserMessageVm productAndUserMessageVm);
 }

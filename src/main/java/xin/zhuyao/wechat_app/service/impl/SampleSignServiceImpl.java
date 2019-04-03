@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import xin.zhuyao.wechat_app.entity.SampleSign;
 import xin.zhuyao.wechat_app.entityvm.ProductAndUserMessageVm;
 import xin.zhuyao.wechat_app.repository.SampleSignRepository;
@@ -60,13 +61,20 @@ public class SampleSignServiceImpl implements SampleSignService {
     }
 
     @Override
-    public Object saveSampleSign(ProductAndUserMessageVm productAndUserMessageVm) {
-        SampleSign sampleSign = new SampleSign();
-        BeanUtils.copyProperties(productAndUserMessageVm,sampleSign);
-        sampleSign.setCreateDate(LocalDateTime.now());
-        sampleSign.setUpdateDate(LocalDateTime.now());
-        sampleSign.setSelectDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        sampleSign.setStatus(0);
-        return sampleSignRepository.save(sampleSign);
+    public String saveSampleSign(ProductAndUserMessageVm productAndUserMessageVm) {
+        if (productAndUserMessageVm.getProductName() != null && !StringUtils.isEmpty(productAndUserMessageVm.getProductName())
+                && productAndUserMessageVm.getSku() != null && !StringUtils.isEmpty(productAndUserMessageVm.getProductName())
+                && productAndUserMessageVm.getProductNum() != null && !StringUtils.isEmpty(productAndUserMessageVm.getProductNum())
+                && productAndUserMessageVm.getUserName() != null && !StringUtils.isEmpty(productAndUserMessageVm.getUserName())) {
+            SampleSign sampleSign = new SampleSign();
+            BeanUtils.copyProperties(productAndUserMessageVm,sampleSign);
+            sampleSign.setCreateDate(LocalDateTime.now());
+            sampleSign.setUpdateDate(LocalDateTime.now());
+            sampleSign.setSelectDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            sampleSign.setStatus(0);
+            sampleSignRepository.save(sampleSign);
+            return "ok";
+        }
+        return "error";
     }
 }
